@@ -1,0 +1,10 @@
+[project]
+name = "wheresmyhouse"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "beautifulsoup4>=4.13.4",
+    "curl-cffi>=0.10.0",
+    "lxml>=5.3.2",
+]
+

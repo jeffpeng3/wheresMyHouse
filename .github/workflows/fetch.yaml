@@ -1,0 +1,40 @@
+name: Fetch House Data
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Install dependencies
+        run: |
+          uv sync
+
+      - name: Run main.py
+        env:
+          WEBHOOK: ${{ secrets.WEBHOOK }}
+          URLS: ${{ secrets.URLS }}
+        run: |
+          if [ ! -f "data.json" ]; then
+            echo "[]" > data.json
+          fi
+          uv run python main.py
+
+      - name: Commit changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add -f data.json
+          git diff --staged --quiet || (git commit -m "update info" && git push)
