@@ -78,7 +78,7 @@ for url in urls:
     soup = getList(url)
     items = soup.find_all("div", class_="item")
     for i in filter(lambda x: x.uid not in seen, map(parseInfo, items)):
-        print(i)
+        # print(i)
         sendToDiscord(i)
         seen.append(i.uid)
 
