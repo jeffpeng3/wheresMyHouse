@@ -59,11 +59,6 @@ def sendToDiscord(info: Info):
 
 
 def getList(url: str) -> BeautifulSoup:
-
-    with open("591.html", "r", encoding="utf-8") as f:
-        content = f.read()
-    return BeautifulSoup(content, "lxml")
-
     r = get(url, impersonate="chrome")
     return BeautifulSoup(r.text, "lxml")
 
