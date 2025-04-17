@@ -77,7 +77,6 @@ for url in urls:
         print(i)
         sendToDiscord(i)
         seen.append(i.uid)
-        break
 
 with open("data.json", "w", encoding="utf-8") as f:
     dump(seen, f, ensure_ascii=False, indent=4)
