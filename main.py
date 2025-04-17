@@ -1,14 +1,16 @@
 from bs4 import BeautifulSoup
 from bs4 import Tag
 from urllib.parse import urlparse
-from curl_cffi.requests import get, post
+from curl_cffi import get, post
 from dataclasses import dataclass
 from json import load, dump, loads
 from os import getenv
 
 WEBHOOK = getenv("WEBHOOK")
 
-
+headers = {
+    "Accept-Language": "zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7"
+}
 @dataclass
 class Info:
     title: str
@@ -59,7 +61,9 @@ def sendToDiscord(info: Info):
 
 
 def getList(url: str) -> BeautifulSoup:
-    r = get(url, impersonate="chrome")
+    r = get(url, impersonate="chrome", headers=headers)
+    with open("list.html", "w", encoding="utf-8") as f:
+        f.write(r.text)
     return BeautifulSoup(r.text, "lxml")
 
 
