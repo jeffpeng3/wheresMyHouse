@@ -29,8 +29,6 @@ jobs:
         env:
           WEBHOOK: ${{ secrets.WEBHOOK }}
           URLS: ${{ secrets.URLS }}
-          LANG: zh_TW.UTF-8
-          LC_ALL: zh_TW.UTF-8
 
         run: |
           if [ ! -f "data.json" ]; then
