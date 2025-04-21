@@ -29,6 +29,8 @@ jobs:
         env:
           WEBHOOK: ${{ secrets.WEBHOOK }}
           URLS: ${{ secrets.URLS }}
+          MANY_WEBHOOK: ${{ secrets.MANY_WEBHOOK }}
+          MANY_URLS: ${{ secrets.MANY_URLS }}
 
         run: |
           if [ ! -f "data.json" ]; then
