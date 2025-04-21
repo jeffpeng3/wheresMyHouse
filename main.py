@@ -80,7 +80,7 @@ def fetch(webhook: str, urls: list[str]):
         items = soup.find_all("div", class_="item")
         # for i in map(parseInfo, items):
         for i in filter(lambda x: x.uid not in seen, map(parseInfo, items)):
-            print(i)
+            # print(i)
             send(i)
             seen.append(i.uid)
 
