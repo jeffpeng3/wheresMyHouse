@@ -64,6 +64,7 @@ def sendToDiscord(webhook: str, info: Info):
     sleep(1)
     if r.status_code != 204:
         print(f"Error sending to Discord: {r.status_code}")
+        seen.remove(info.uid)
 
 
 def getList(url: str) -> BeautifulSoup:
@@ -81,8 +82,8 @@ def fetch(webhook: str, urls: list[str]):
         # for i in map(parseInfo, items):
         for i in filter(lambda x: x.uid not in seen, map(parseInfo, items)):
             # print(i)
-            send(i)
             seen.append(i.uid)
+            send(i)
 
 with open("data.json", "r", encoding="utf-8") as f:
     seen: list[str] = load(f)
