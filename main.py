@@ -65,6 +65,14 @@ def sendToDiscord(webhook: str, info: Info):
     if r.status_code != 204:
         print(f"Error sending to Discord: {r.status_code}")
         seen.remove(info.uid)
+        payload = {
+            "content": f"發送失敗: \n{info}",
+        }
+        post(
+            webhook,
+            json=payload,
+            headers={"Content-Type": "application/json"},
+        )
 
 
 def getList(url: str) -> BeautifulSoup:
